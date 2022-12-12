@@ -1,3 +1,7 @@
+body {
+  background-color: #101010;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -9,15 +13,32 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   width: 500px;
-  margin: 0 auto;
   grid-gap: 10px;
+  margin: 0;
+  padding: 10px;
 }
 
 .decks li {
-  display: block;
-  background-color: black;
-  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(216, 216, 216);
+  color: black;
   height: 120px;
   border: 1px solid black;
   border-radius: 8px;
+  cursor: pointer;
+}
+
+.decks li:hover {
+  background-color: white;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+  gap: 10px;
+  color: white;
 }
