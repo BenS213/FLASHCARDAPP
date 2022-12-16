@@ -8,7 +8,7 @@ body {
   padding: 2rem;
   text-align: center;
 }
-
+.cards,
 .decks {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -18,6 +18,7 @@ body {
   padding: 10px;
 }
 
+.cards li,
 .decks li {
   position: relative;
   display: flex;
@@ -31,6 +32,7 @@ body {
   cursor: pointer;
 }
 
+.cards li button,
 .decks li button {
   position: absolute;
   top: 5px;

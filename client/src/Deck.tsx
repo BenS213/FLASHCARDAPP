@@ -5,9 +5,12 @@
     import { Routes, Route, useParams } from "react-router-dom"
     import { getDecks, TDeck } from "./api/getDecks";
     import "./App.css";
+    import { getDeck } from "./api/getDeck";
+import { deleteCard } from "./api/deleteCard";
     
     export default function Deck() {
     
+      const [deck, setDeck] = useState<TDeck | undefined>();
       const [cards, setCards] = useState<string[]>([]);
       const [text, setText] = useState("");
       const { deckId } = useParams();
@@ -19,25 +22,28 @@
         setText("");
     }
     
-    // async function handleDeleteDeck(deckId: string) {
-    //     await deleteDeck(deckId);
-    //     setText(text.filter(deck => deck._id !== deckId))
-    //   }
+    async function handleDeleteCard(index:number) {
+      if(!deckId) return
+        const newDeck = await deleteCard(deckId, index);
+        setCards(newDeck.cards)
+      }
       
-    //   useEffect(() => {
-    //       async function fetchDecks() {
-    //           const newDecks = await getDecks();
-    //           setText(newDecks)
-    //     }
-    //     fetchDecks();
-    // }, []);
+      useEffect(() => {
+        async function fetchDeck() {
+            if (!deckId) return;
+              const newDeck = await getDeck(deckId);
+              setDeck(newDeck)
+              setCards(newDeck.cards)
+        }
+        fetchDeck();
+    }, [deckId]);
     
     return (
         <div className="App">
-          <ul className="decks">
-            {cards.map((card) => (
-              <li key={card}>
-                {/* <button onClick={() => handleDeleteCard(card._id)}>X</button> */}
+          <ul className="cards">
+            {cards.map((card, index) => (
+              <li key={index}>
+                <button onClick={() => handleDeleteCard(index)}>X</button>
                 {card}
                 </li>))}
           </ul>
@@ -50,7 +56,7 @@
                 setText(e.target.value);
               }}
             />
-            <button>Create Deck</button>
+            <button>Create Card</button>
           </form>
         </div>
       );
